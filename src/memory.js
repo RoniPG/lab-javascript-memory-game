@@ -7,26 +7,21 @@ class MemoryGame {
     this.pairsGuessed = 0;
   }
 
-  shuffleCards(cards) {
+  shuffleCards() {
     // ... write your code here
     // Método de Fisher-Yates
-    if (!cards || cards.length <2) {
-      return undefined;
-    } else {
-      let originalOrder = [...cards]; // Copia del array original para comparación
-      let isSameOrder;
-
-      do {
-        for (let i = cards.length - 1; i > 0; i--) {
-          const j = Math.floor(Math.random() * (i + 1));  // Genera un número aleatorio entre 0 y i
-          [cards[i], cards[j]] = [cards[j], cards[i]];    // Intercambia array[i] con array[j]
-        }
-         // Comparamos si el nuevo orden es igual al original
-        isSameOrder = originalOrder.every((card, index) => card === cards[index]);
-      } while (isSameOrder); // Si el orden no cambió, vuelve a mezclar
-
-      return cards;    
-    }
+    if (!this.cards) {
+        return undefined;
+      }
+      for (let m = this.cards.length - 1; m > 0; m--) {
+        // Seleccionar un elemento aleatorio
+        const i = Math.floor(Math.random() * (m + 1));
+    
+        // Intercambiar el elemento actual con el elemento seleccionado
+        [this.cards[m], this.cards[i]] = [this.cards[i], this.cards[m]];
+      }
+    
+      return this.cards;    
   }
 
   checkIfPair(card1, card2) {
@@ -42,5 +37,6 @@ class MemoryGame {
 
   checkIfFinished() {
     // ... write your code here
+   return this.pairsGuessed * 2 === this.cards.length;
   }
 }
